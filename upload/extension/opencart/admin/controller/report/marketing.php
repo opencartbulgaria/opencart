@@ -162,29 +162,20 @@ class Marketing extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		$url = '';
+		$remove = [
+			'route',
+			'user_token',
+			'code',
+			'page'
+		];
 
-		if (isset($this->request->get['filter_date_start'])) {
-			$url .= '&filter_date_start=' . $this->request->get['filter_date_start'];
-		}
-
-		if (isset($this->request->get['filter_date_end'])) {
-			$url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
-		}
-
-		if (isset($this->request->get['filter_order_status_id'])) {
-			$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
-		}
+		$url = http_build_query(array_diff_key($this->request->get, array_flip($remove)));
 
 		// Pagination
-		$data['pagination'] = $this->load->controller('common/pagination', [
-			'total' => $marketing_total,
-			'page'  => $page,
-			'limit' => $this->config->get('config_pagination'),
-			'callback' => function(int $page) use ($url): string {
-				return $this->url->link('extension/opencart/report/marketing.list', 'user_token=' . $this->session->data['user_token'] . '&code=marketing' . $url . ($page ? '&page=' . $page : ''));
-			}
-		]);
+		$data['total'] = $marketing_total;
+		$data['page'] = $page;
+		$data['limit'] = $this->config->get('config_pagination_admin');
+		$data['pagination'] = $this->url->link('extension/opencart/report/marketing.list', 'user_token=' . $this->session->data['user_token'] . '&code=marketing' . $url . '&page={page}');
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($marketing_total) ? (($page - 1) * $this->config->get('config_pagination')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination')) > ($marketing_total - $this->config->get('config_pagination'))) ? $marketing_total : ((($page - 1) * $this->config->get('config_pagination')) + $this->config->get('config_pagination')), $marketing_total, ceil($marketing_total / $this->config->get('config_pagination')));
 

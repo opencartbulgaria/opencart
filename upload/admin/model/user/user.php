@@ -257,17 +257,18 @@ class User extends \Opencart\System\Engine\Model {
 		}
 
 		$sort_data = [
-			'username',
-			'name',
-			'u.email',
-			'user_group',
-			'status',
-			'ip',
-			'u.date_added'
+			'username'   => 'username',
+			'name'       => 'name',
+			'customer'   => 'customer',
+			'email'      => 'u.email',
+			'user_group' => 'user_group',
+			'status'     => 'status',
+			'ip'         => 'ip',
+			'date_added' => 'u.date_added'
 		];
 
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
+		if (isset($data['sort']) && array_key_exists($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $sort_data[$data['sort']];
 		} else {
 			$sql .= " ORDER BY `username`";
 		}

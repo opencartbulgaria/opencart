@@ -22,7 +22,8 @@ class Footer extends \Opencart\System\Engine\Controller {
 			$data['text_version'] = '';
 		}
 
-		$data['bootstrap'] = './static/javascript/bootstrap/js/bootstrap.bundle.min.js';
+		// Hard coding css so they can be replaced via the event's system.
+		$data['scripts'] = $this->document->getScripts();
 
 		return $this->load->view('common/footer', $data);
 	}

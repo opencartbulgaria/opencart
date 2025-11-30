@@ -247,13 +247,13 @@ class Topic extends \Opencart\System\Engine\Model {
 		}
 
 		$sort_data = [
-			'td.name',
-			't.status',
-			't.sort_order'
+			'name'       => 'td.name',
+			'status'     => 't.status',
+			'sort_order' => 't.sort_order'
 		];
 
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
+		if (isset($data['sort']) && array_key_exists($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $sort_data[$data['sort']];
 		} else {
 			$sql .= " ORDER BY `t`.`sort_order`";
 		}

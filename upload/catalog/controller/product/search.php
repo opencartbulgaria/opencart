@@ -76,6 +76,8 @@ class Search extends \Opencart\System\Engine\Controller {
 			$this->document->setTitle($this->language->get('heading_title'));
 		}
 
+		$this->document->addScript('catalog/view/javascript/search.js');
+
 		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = [
@@ -398,9 +400,7 @@ class Search extends \Opencart\System\Engine\Controller {
 				'total' => $product_total,
 				'page'  => $page,
 				'limit' => $limit,
-				'callback' => function(int $page) use ($url): string {
-					return $this->url->link('product/search', 'language=' . $this->config->get('config_language') . $url . ($page ? '&page=' . $page : ''));
-				}
+				'url' => $this->url->link('product/search', 'language=' . $this->config->get('config_language') . $url . '&page=' . $page)
 			]);
 
 			$data['results'] = sprintf($this->language->get('text_pagination'), ($product_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($product_total - $limit)) ? $product_total : ((($page - 1) * $limit) + $limit), $product_total, ceil($product_total / $limit));

@@ -240,17 +240,17 @@ class Order extends \Opencart\System\Engine\Model {
 		}
 
 		$sort_data = [
-			'o.order_id',
-			'o.store_name',
-			'customer',
-			'order_status',
-			'o.date_added',
-			'o.date_modified',
-			'o.total'
+			'order_id'      => 'o.order_id',
+			'store'         => 'o.store_name',
+			'customer'      => 'customer',
+			'order_status'  => 'order_status',
+			'total'         => 'o.total',
+			'date_added'    => 'o.date_added',
+			'date_modified' => 'o.date_modified'
 		];
 
-		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-			$sql .= " ORDER BY " . $data['sort'];
+		if (isset($data['sort']) && array_key_exists($data['sort'], $sort_data)) {
+			$sql .= " ORDER BY " . $sort_data[$data['sort']];
 		} else {
 			$sql .= " ORDER BY `o`.`order_id`";
 		}

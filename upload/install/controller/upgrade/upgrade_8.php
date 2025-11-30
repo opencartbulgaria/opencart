@@ -580,12 +580,6 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 			];
 
 			$events[] = [
-				'code'    => 'ssr_compare',
-				'trigger' => 'catalog/controller/product/compare/after',
-				'action'  => 'event/ssr'
-			];
-
-			$events[] = [
 				'code'    => 'ssr_manufacturer',
 				'trigger' => 'catalog/controller/product/manufacturer/after',
 				'action'  => 'event/ssr'
@@ -606,12 +600,6 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 			$events[] = [
 				'code'    => 'ssr_search',
 				'trigger' => 'catalog/controller/product/search/after',
-				'action'  => 'event/ssr'
-			];
-
-			$events[] = [
-				'code'    => 'ssr_contact',
-				'trigger' => 'catalog/controller/information/contact/after',
 				'action'  => 'event/ssr'
 			];
 
@@ -663,6 +651,44 @@ class Upgrade8 extends \Opencart\System\Engine\Controller {
 				'code'    => 'store_delete',
 				'trigger' => 'admin/model/setting/store.deleteStore/after',
 				'action'  => 'event/store'
+			];
+
+			// Tax Class
+			$events[] = [
+				'code'    => 'tax_class_add',
+				'trigger' => 'admin/model/localisation/tax_class.addTaxClass/after',
+				'action'  => 'event/tax_class'
+			];
+
+			$events[] = [
+				'code'    => 'tax_class_edit',
+				'trigger' => 'admin/model/localisation/tax_class.editTaxClass/after',
+				'action'  => 'event/tax_class'
+			];
+
+			$events[] = [
+				'code'    => 'tax_class_delete',
+				'trigger' => 'admin/model/localisation/tax_class.deleteTaxClass/after',
+				'action'  => 'event/tax_class'
+			];
+
+			// Tax Rate
+			$events[] = [
+				'code'    => 'tax_rate_add',
+				'trigger' => 'admin/model/localisation/tax_rate.addTaxRate/after',
+				'action'  => 'event/tax_rate'
+			];
+
+			$events[] = [
+				'code'    => 'tax_rate_edit',
+				'trigger' => 'admin/model/localisation/tax_rate.editTaxRate/after',
+				'action'  => 'event/tax_rate'
+			];
+
+			$events[] = [
+				'code'    => 'tax_rate_delete',
+				'trigger' => 'admin/model/localisation/tax_rate.deleteTaxRate/after',
+				'action'  => 'event/tax_rate'
 			];
 
 			// Theme

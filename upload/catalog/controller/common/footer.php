@@ -84,8 +84,8 @@ class Footer extends \Opencart\System\Engine\Controller {
 			$this->model_tool_online->addOnline(oc_get_ip(), $this->customer->getId(), $url, $referer);
 		}
 
-		$data['bootstrap'] = './static/javascript/bootstrap/js/bootstrap.bundle.min.js';
-		$data['scripts'] = $this->document->getScripts('footer');
+		// Hard coding scripts, so they can be replaced via the event's system.
+		$data['scripts'] = $this->document->getScripts();
 		$data['cookie'] = $this->load->controller('common/cookie');
 
 		return $this->load->view('common/footer', $data);

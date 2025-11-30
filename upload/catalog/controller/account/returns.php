@@ -75,9 +75,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 			'total' => $return_total,
 			'page'  => $page,
 			'limit' => $limit,
-			'callback' => function(int $page): string {
-				return $this->url->link('account/returns', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . ($page ? '&page=' . $page : ''));
-			}
+			'url'   => $this->url->link('account/returns', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&page=%d')
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($return_total - $limit)) ? $return_total : ((($page - 1) * $limit) + $limit), $return_total, ceil($return_total / $limit));
@@ -121,6 +119,8 @@ class Returns extends \Opencart\System\Engine\Controller {
 
 		if ($return_info) {
 			$this->document->setTitle($this->language->get('text_return'));
+
+			$this->document->addScript('catalog/view/javascript/return.js');
 
 			$data['breadcrumbs'] = [];
 
@@ -198,6 +198,8 @@ class Returns extends \Opencart\System\Engine\Controller {
 		$this->load->language('account/returns');
 
 		$this->document->setTitle($this->language->get('heading_title'));
+
+		$this->document->addScript('catalog/view/javascript/return.js');
 
 		$data['breadcrumbs'] = [];
 
@@ -529,9 +531,7 @@ class Returns extends \Opencart\System\Engine\Controller {
 			'total' => $return_total,
 			'page'  => $page,
 			'limit' => $limit,
-			'callback' => function(int $page) use ($return_id): string {
-				return $this->url->link('account/return.history', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&return_id=' . $return_id  . ($page ? '&page=' . $page : ''));
-			}
+			'url'   => $this->url->link('account/return.history', 'language=' . $this->config->get('config_language') . '&customer_token=' . $this->session->data['customer_token'] . '&return_id=' . $return_id  . '&page=' . $page)
 		]);
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($return_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($return_total - $limit)) ? $return_total : ((($page - 1) * $limit) + $limit), $return_total, ceil($return_total / $limit));

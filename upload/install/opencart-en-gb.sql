@@ -1464,12 +1464,10 @@ VALUES ('activity_customer_add', 'Adds new customer entry in the activity log.',
        ('ssr_article', 'Create a static article page.', 'catalog/controller/cms/article/after', 'event/ssr', 1),
        ('ssr_topic', 'Create a static topic page.', 'catalog/controller/cms/topic/after', 'event/ssr', 1),
        ('ssr_category', 'Create a static category page.', 'catalog/controller/product/category/after', 'event/ssr', 1),
-       ('ssr_compare', 'Create a static compare page.', 'catalog/controller/product/compare/after', 'event/ssr', 1),
        ('ssr_manufacturer', 'Create a static manufacturer page.', 'catalog/controller/product/manufacturer/after', 'event/ssr', 1),
        ('ssr_product', 'Create a static product page.', 'catalog/controller/product/product/after', 'event/ssr', 1),
        ('ssr_special', 'Create a static special page.', 'catalog/controller/product/special/after', 'event/ssr', 1),
        ('ssr_search', 'Create a static search page.', 'catalog/controller/product/search/after', 'event/ssr', 1),
-       ('ssr_contact', 'Create a static contact page.', 'catalog/controller/information/contact/after', 'event/ssr', 1),
        ('ssr_information', 'Create a static information page.', 'catalog/controller/information/information/after', 'event/ssr', 1),
        ('ssr_sitemap', 'Create a static sitemap page.', 'catalog/controller/information/sitemap/after', 'event/ssr', 1),
        ('statistics_review_add', 'Updates review statistics when a new review is added.', 'catalog/model/catalog/review.addReview/after', 'event/statistics.addReview', 1),
@@ -1485,6 +1483,12 @@ VALUES ('activity_customer_add', 'Adds new customer entry in the activity log.',
        ('subscription_status_add', 'Updates subscription status data when a new subscription status is added.', 'admin/model/localisation/subscription_status.addSubscriptionStatus/after', 'event/subscription_status', 1),
        ('subscription_edit', 'Updates subscription status data when a subscription status is edited.', 'admin/model/localisation/subscription_status.editSubscriptionStatus/after', 'event/subscription_status', 1),
        ('subscription_delete', 'Updates subscription status data when a subscription status is deleted.', 'admin/model/localisation/subscription_status.deleteSubscriptionStatus/after', 'event/subscription_status', 1),
+       ('tax_class_add', 'Updates tax class data when a new tax class is added.', 'admin/model/localisation/tax_class.addTaxClass/after', 'event/tax_class', 1),
+       ('tax_class_edit', 'Updates tax class data when a tax class is edited.', 'admin/model/localisation/tax_class.editTaxClass/after', 'event/tax_class', 1),
+       ('tax_class_delete', 'Updates tax class data when a tax class is deleted.', 'admin/model/localisation/tax_class.deleteTaxClass/after', 'event/tax_class', 1),
+       ('tax_rate_add', 'Updates tax rate data when a new tax rate is added.', 'admin/model/localisation/tax_rate.addRate/after', 'event/tax_class', 1),
+       ('tax_rate_edit', 'Updates tax rate data when a tax rate is edited.', 'admin/model/localisation/tax_rate.editRate/after', 'event/tax_class', 1),
+       ('tax_rate_delete', 'Updates tax rate data when a tax rate is deleted.', 'admin/model/localisation/tax_rate.deleteRate/after', 'event/tax_class', 1),
        ('theme_add', 'Updates theme data when a new theme is added.', 'admin/model/design/theme.addTheme/after', 'event/theme', 1),
        ('theme_edit', 'Updates theme data when a theme is edited.', 'admin/model/design/theme.editTheme/after', 'event/theme', 1),
        ('theme_delete', 'Updates theme data when a theme is deleted.', 'admin/model/design/theme.deleteTheme/after', 'event/theme', 1),
@@ -2215,7 +2219,7 @@ VALUES (1, 'category', 'link', 'catalog/category', 'catalog', 1),
        (42, 'marketing_2', 'link', 'marketing/marketing', 'marketing', 2),
        (43, 'coupon', 'link', 'marketing/coupon', 'marketing', 3),
        (44, 'contact', 'link', 'marketing/contact', 'marketing', 4),
-       (45, 'setting', 'link', 'setting/setting', 'system', 1),
+       (45, 'setting', 'link', 'setting/store', 'system', 1),
        (46, 'user', 'dropdown', '', 'system', 2),
        (47, 'user_2', 'link', 'user/user', 'user', 1),
        (48, 'user_permission', 'link', 'user/user_permission', 'user', 2),
@@ -3198,6 +3202,15 @@ VALUES ('1', 'page', '/^(\\d+)$/', 'page-$1', '/^page-(\\d+)$/', '$1', '10'),
        ('3', 'filter', '/^(\\d+)$/', 'filter-$1', '/^filter-(\\d+)$/', '$1', '0'),
        ('4', 'filter', '^/(\\d+),(\\d+)$/', 'filter-$1-$2', '/^filter-(\\d+)-(\\d+)$/', '$1,$2', '0'),
        ('5', 'customer_token', '/^(\\s+)$/', 'customer-token-$1', '/^customer-token-(\\s+)$/', '$1', '0');
+
+-----------------------------------------------------------
+
+--
+-- Dumping data for table `oc_startup`
+--
+
+INSERT INTO `oc_startup` (`description`, `code`, `action`, `status`, `sort_order`)
+VALUES ('Starts processing tasks when a new task is added.', 'task', 'admin/controller/startup/task', '1', '1');
 
 -----------------------------------------------------------
 

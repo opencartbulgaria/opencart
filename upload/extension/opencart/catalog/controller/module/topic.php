@@ -20,15 +20,14 @@ class Topic extends \Opencart\System\Engine\Controller {
 			$data['topic_id'] = 0;
 		}
 
-		$url = '';
+		$remove = [
+			'route',
+			'user_token',
+			'code',
+			'page'
+		];
 
-		if (isset($this->request->get['sort'])) {
-			$url .= '&sort=' . $this->request->get['sort'];
-		}
-
-		if (isset($this->request->get['order'])) {
-			$url .= '&order=' . $this->request->get['order'];
-		}
+		$url = http_build_query(array_diff_key($this->request->get, array_flip($remove)));
 
 		// Topics
 		$data['topics'] = [];

@@ -189,33 +189,20 @@ class Subscription extends \Opencart\System\Engine\Controller {
 			] + $result;
 		}
 
-		$url = '';
+		$remove = [
+			'route',
+			'user_token',
+			'code',
+			'page'
+		];
 
-		if (isset($this->request->get['filter_date_start'])) {
-			$url .= '&filter_date_start=' . $this->request->get['filter_date_start'];
-		}
-
-		if (isset($this->request->get['filter_date_end'])) {
-			$url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
-		}
-
-		if (isset($this->request->get['filter_group'])) {
-			$url .= '&filter_group=' . $this->request->get['filter_group'];
-		}
-
-		if (isset($this->request->get['filter_subscription_status_id'])) {
-			$url .= '&filter_subscription_status_id=' . $this->request->get['filter_subscription_status_id'];
-		}
+		$url = http_build_query(array_diff_key($this->request->get, array_flip($remove)));
 
 		// Pagination
-		$data['pagination'] = $this->load->controller('common/pagination', [
-			'total' => $subscription_total,
-			'page'  => $page,
-			'limit' => $this->config->get('config_pagination'),
-			'callback' => function(int $page) use ($url): string {
-				return $this->url->link('extension/opencart/report/subscription', 'user_token=' . $this->session->data['user_token'] . '&code=subscription' . $url . ($page ? '&page=' . $page : ''));
-			}
-		]);
+		$data['total'] = $subscription_total;
+		$data['page'] = $page;
+		$data['limit'] = $this->config->get('config_pagination_admin');
+		$data['pagination'] = $this->url->link('extension/opencart/report/subscription', 'user_token=' . $this->session->data['user_token'] . '&code=sale_tax' . $url . '&page={page}');
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($subscription_total) ? (($page - 1) * $this->config->get('config_pagination')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination')) > ($subscription_total - $this->config->get('config_pagination'))) ? $subscription_total : ((($page - 1) * $this->config->get('config_pagination')) + $this->config->get('config_pagination')), $subscription_total, ceil($subscription_total / $this->config->get('config_pagination')));
 

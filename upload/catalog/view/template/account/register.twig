@@ -46,7 +46,6 @@
               <div id="error-email" class="invalid-feedback"></div>
             </div>
           </div>
-
           {% if config_telephone_display %}
             <div class="row mb-3">
               <label for="input-telephone" class="col-sm-2 col-form-label">{{ entry_telephone }}</label>
@@ -56,9 +55,7 @@
               </div>
             </div>
           {% endif %}
-
           {% for custom_field in custom_fields %}
-
             {% if custom_field.type == 'select' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -73,7 +70,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'radio' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -89,7 +85,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'checkbox' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -105,7 +100,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'text' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -115,7 +109,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'textarea' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -125,7 +118,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'file' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -138,7 +130,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'date' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -148,7 +139,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'time' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -158,7 +148,6 @@
                 </div>
               </div>
             {% endif %}
-
             {% if custom_field.type == 'datetime' %}
               <div class="row mb-3 custom-field custom-field-{{ custom_field.custom_field_id }}">
                 <label for="input-custom-field-{{ custom_field.custom_field_id }}" class="col-sm-2 col-form-label">{{ custom_field.name }}</label>
@@ -168,10 +157,8 @@
                 </div>
               </div>
             {% endif %}
-
           {% endfor %}
         </fieldset>
-
         <fieldset>
           <legend>{{ text_your_password }}</legend>
           <div class="row mb-3">
@@ -182,7 +169,6 @@
             </div>
           </div>
         </fieldset>
-
         <fieldset>
           <legend>{{ text_newsletter }}</legend>
           <div class="row mb-3">
@@ -206,31 +192,4 @@
     {{ column_right }}
   </div>
 </div>
-<script type="text/javascript"><!--
-$('#input-customer-group').on('change', function() {
-    $.ajax({
-        url: 'index.php?route=account/custom_field&customer_group_id=' + this.value + '&language={{ language }}',
-        dataType: 'json',
-        success: function(json) {
-            $('.custom-field').hide();
-            $('.custom-field').removeClass('required');
-
-            for (i = 0; i < json.length; i++) {
-                custom_field = json[i];
-
-                $('.custom-field-' + custom_field['custom_field_id']).show();
-
-                if (custom_field['required']) {
-                    $('.custom-field-' + custom_field['custom_field_id']).addClass('required');
-                }
-            }
-        },
-        error: function(xhr, ajaxOptions, thrownError) {
-            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-        }
-    });
-});
-
-$('#input-customer-group').trigger('change');
-//--></script>
 {{ footer }}

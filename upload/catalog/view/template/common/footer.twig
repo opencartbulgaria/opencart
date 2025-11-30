@@ -49,16 +49,18 @@
     <hr>
     <p>{{ powered }}</p>
     <!--
-OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
+OpenCart is open source software and your free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
 Please donate via PayPal to donate@opencart.com
 //-->
   </div>
 </footer>
-</div> <!-- #container .d-flex //-->
+</div>
 {{ cookie }}
-<script src="{{ bootstrap }}" type="text/javascript"></script>
+<script src="./assets/jquery/jquery-3.7.1.min.js" type="module"></script>
+<script src="./assets/bootstrap/js/bootstrap.bundle.min.js" type="module"></script>
+<script src="./catalog/view/javascript/setting.js" type="module"></script>
+<script src="./catalog/view/javascript/common.js" type="module"></script>
 {% for script in scripts %}
-  <script src="{{ script.href }}" type="text/javascript"></script>
+  <script src="./{{ script.href }}" type="module"></script>
 {% endfor %}
-<script src="./static/javascript/framework/webcomponent.js" type="module"></script>
 </body></html>

@@ -9,7 +9,7 @@ class Smtp {
 	/**
 	 * @var string
 	 */
-	protected string $to = '';
+	protected string|array $to = '';
 	/**
 	 * @var string
 	 */
@@ -85,7 +85,7 @@ class Smtp {
 	 *
 	 * @return void
 	 */
-	public function setTo($to): void {
+	public function setTo(string|array $to): void {
 		$this->to = $to;
 	}
 
@@ -213,7 +213,7 @@ class Smtp {
 
 		// Header
 		$header  = 'MIME-Version: 1.0' . PHP_EOL;
-		$header .= 'To: <' . $this->to . '>' . PHP_EOL;
+		$header .= 'To: <' . $to . '>' . PHP_EOL;
 		$header .= 'Subject: =?UTF-8?B?' . base64_encode($this->subject) . '?=' . PHP_EOL;
 		$header .= 'Date: ' . date('D, d M Y H:i:s O') . PHP_EOL;
 		$header .= 'From: =?UTF-8?B?' . base64_encode($this->sender) . '?= <' . $this->from . '>' . PHP_EOL;

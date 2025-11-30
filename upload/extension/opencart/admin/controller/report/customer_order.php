@@ -172,33 +172,20 @@ class CustomerOrder extends \Opencart\System\Engine\Controller {
 			];
 		}
 
-		$url = '';
+		$remove = [
+			'route',
+			'user_token',
+			'code',
+			'page'
+		];
 
-		if (isset($this->request->get['filter_date_start'])) {
-			$url .= '&filter_date_start=' . $this->request->get['filter_date_start'];
-		}
-
-		if (isset($this->request->get['filter_date_end'])) {
-			$url .= '&filter_date_end=' . $this->request->get['filter_date_end'];
-		}
-
-		if (isset($this->request->get['filter_customer'])) {
-			$url .= '&filter_customer=' . urlencode($this->request->get['filter_customer']);
-		}
-
-		if (isset($this->request->get['filter_order_status_id'])) {
-			$url .= '&filter_order_status_id=' . $this->request->get['filter_order_status_id'];
-		}
+		$url = http_build_query(array_diff_key($this->request->get, array_flip($remove)));
 
 		// Pagination
-		$data['pagination'] = $this->load->controller('common/pagination', [
-			'total' => $customer_total,
-			'page'  => $page,
-			'limit' => $this->config->get('config_pagination'),
-			'callback' => function(int $page) use ($url): string {
-				return $this->url->link('extension/opencart/report/customer_order.report', 'user_token=' . $this->session->data['user_token'] . '&code=customer_order' . $url . ($page ? '&page=' . $page : ''));
-			}
-		]);
+		$data['total'] = $customer_total;
+		$data['page'] = $page;
+		$data['limit'] = $this->config->get('config_pagination_admin');
+		$data['pagination'] = $this->url->link('extension/opencart/report/customer_order.list', 'user_token=' . $this->session->data['user_token'] . '&code=customer_order' . $url . '&page={page}');
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($customer_total) ? (($page - 1) * $this->config->get('config_pagination')) + 1 : 0, ((($page - 1) * $this->config->get('config_pagination')) > ($customer_total - $this->config->get('config_pagination'))) ? $customer_total : ((($page - 1) * $this->config->get('config_pagination')) + $this->config->get('config_pagination')), $customer_total, ceil($customer_total / $this->config->get('config_pagination')));
 
